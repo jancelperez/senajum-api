@@ -33,6 +33,14 @@ hash.set('POST /', async function postPicture (req, res, params) {
   await db.disconnect()
   send(res, 201, created)
 })
+
+hash.set('POST /:id/like', async function likePicture (req, res, params) {
+  let id = params.id
+  await db.connect()
+  let imagen = await db.likeImagen(id)
+  await db.disconnect()
+  send(res, 200, imagen)
+})
 // micro espera que le exporte una funcion asincrona para empezar a servir
 // se exporta la funcion main que tiene los objetos de reques y response
 export default async function main (req, res) {

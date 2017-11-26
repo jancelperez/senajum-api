@@ -38,7 +38,8 @@ test('GET /:id', async t => {
 
   console.log(`${url}/${imagen.publicId} esto es una prueba`)
 })
-// una de las caracteristicas de ava es definir el test sin implementar el test esto lo puedo hacer con todo
+
+// POST / es la segunda ruta la cual es un test asincrono
 test('POST /', async t => {
   let imagen = fixtures.getImagen()
   let url = t.context.url
@@ -61,4 +62,24 @@ test('POST /', async t => {
   t.deepEqual(response.body, imagen)
 })
 
-test.todo('POST/:/like')
+test('POST /:id /like', async t => {
+  let imagen = fixtures.getImagen()
+  let url = t.context.url
+
+  let options = {
+    method: 'POST',
+    uri: `${url}/${imagen.id}/like`,
+    json: true
+  }
+
+  // me devuelve el objeto con la imagen ya con los likes
+  let body = await request(options)
+
+  // clonar la imagen de arriba volviendo el objeto imagen a un string y luego lo parceamos a JSON
+  let NuevaImagen = JSON.parse(JSON.stringify(imagen))
+  NuevaImagen.liked = true
+  NuevaImagen.likes = 1
+
+  t.deepEqual(body, NuevaImagen)
+})
+// una de las caracteristicas de ava es definir el test sin implementar el test esto lo puedo hacer con todo
