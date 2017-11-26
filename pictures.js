@@ -16,6 +16,14 @@ if (env === 'test') {
 
 const hash = HttpHash()
 
+hash.set('GET /tag/:tag', async function PorTag (req, res, params) {
+  let tag = params.tag
+  await db.connect()
+  let imagenes = await db.getImagenesPorTag(tag)
+  await db.disconnect()
+  send(res, 200, imagenes)
+})
+
 hash.set('GET /list', async function lista (req, res, params) {
   await db.connect()
   let imagenes = await db.getImagenes()

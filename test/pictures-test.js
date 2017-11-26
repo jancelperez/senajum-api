@@ -35,8 +35,6 @@ test('GET /:id', async t => {
 
   // con deepEquual validar que la imagen que tubo de esa ruta (body) es igual al objeto que obtiene de getImagen()
   t.deepEqual(body, imagen)
-
-  console.log(`${url}/${imagen.publicId} esto es una prueba`)
 })
 
 // POST / es la segunda ruta la cual es un test asincrono
@@ -91,6 +89,21 @@ test('GET /list', async t => {
   let options = {
     method: 'GET',
     uri: `${url}/list`,
+    json: true
+  }
+
+  let body = await request(options)
+
+  t.deepEqual(body, imagenes)
+})
+
+test('GET /tag/:tag', async t => {
+  let imagenes = fixtures.getImagenesPorTag()
+  let url = t.context.url
+
+  let options = {
+    method: 'GET',
+    uri: `${url}/tag/awesome`,
     json: true
   }
 
