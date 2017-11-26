@@ -15,6 +15,13 @@ if (env === 'test') {
 }
 
 const hash = HttpHash()
+
+hash.set('GET /list', async function lista (req, res, params) {
+  await db.connect()
+  let imagenes = await db.getImagenes()
+  await db.disconnect()
+  send(res, 200, imagenes)
+})
 // Definir la primera ruta, se puede poner como url o metodo y url como express get/ o pos/
 hash.set('GET /:id', async function getPictures (req, res, params) {
   // send es para enviar la respuesta, los parametros son res la respuestas, 200 es el statuscode de http que voy a enviar y params   lo que le voy a enviar

@@ -24,4 +24,12 @@ export default class Db {
     imagen.likes = 1
     return Promise.resolve(imagen)
   }
+
+  getImagenes () {
+    return Promise.resolve([
+      fixtures.getImagen(),
+      fixtures.getImagen(),
+      fixtures.getImagen()
+    ])
+  }
 }

@@ -62,6 +62,7 @@ test('POST /', async t => {
   t.deepEqual(response.body, imagen)
 })
 
+// POST /id/ like es para la ruta que nos va a dar los like de la aplicacion
 test('POST /:id /like', async t => {
   let imagen = fixtures.getImagen()
   let url = t.context.url
@@ -83,3 +84,17 @@ test('POST /:id /like', async t => {
   t.deepEqual(body, NuevaImagen)
 })
 // una de las caracteristicas de ava es definir el test sin implementar el test esto lo puedo hacer con todo
+test('GET /list', async t => {
+  let imagenes = fixtures.getImagenes()
+  let url = t.context.url
+
+  let options = {
+    method: 'GET',
+    uri: `${url}/list`,
+    json: true
+  }
+
+  let body = await request(options)
+
+  t.deepEqual(body, imagenes)
+})
