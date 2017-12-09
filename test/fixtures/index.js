@@ -26,5 +26,16 @@ export default {
       this.getImagen(),
       this.getImagen()
     ]
+  },
+
+  getUsuario () {
+    return {
+      id: '123456789',
+      name: 'Jancel Perez',
+      username: 'janper',
+      email: 'jhperez@misena.edu.co',
+      password: 'senajum',
+      createdAt: new Date().toString()
+    }
   }
 }

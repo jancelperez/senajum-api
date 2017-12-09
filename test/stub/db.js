@@ -32,4 +32,12 @@ export default class Db {
   getImagenesPorTag (tag) {
     return Promise.resolve(fixtures.getImagenesPorTag())
   }
+
+  guardarUsuario (user) {
+    return Promise.resolve(fixtures.getUsuario())
+  }
+
+  getUsuario (username) {
+    return Promise.resolve(fixtures.getUsuario())
+  }
 }
