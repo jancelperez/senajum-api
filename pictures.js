@@ -5,6 +5,7 @@ import HttpHash from 'http-hash'
 import Db from 'senagram-db'
 import DbStub from './test/stub/db'
 import config from './config'
+import utils from './lib/utils'
 
 // const env = process.env.NODE_ENV || 'production'
 const env = 'test'
@@ -43,6 +44,16 @@ hash.set('GET /:id', async function getPictures (req, res, params) {
 
 hash.set('POST /', async function postPicture (req, res, params) {
   let imagen = await json(req)
+
+  try {
+    let token = await utils.extraerToken(req)
+    let encoded = await utils.verificarToken(token, config.secret)
+    if (encoded && encoded.userId !== imagen.UserId) {
+      return send(res, 401, {error: 'invalid token'})
+    }
+  } catch (e) {
+    return send(res, 401, { error: 'invalid token' })
+  }
   await db.connect()
   let created = await db.guardarImagen(imagen)
   await db.disconnect()

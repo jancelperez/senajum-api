@@ -16,6 +16,10 @@ import pictures from '../pictures'
 
 import fixtures from './fixtures'
 
+import utils from '../lib/utils'
+
+import config from '../config'
+
 test.beforeEach(async t => {
   let servidor = micro(pictures)
   t.context.url = await listen(servidor)
@@ -38,7 +42,7 @@ test('GET /:id', async t => {
 })
 
 // POST / es la segunda ruta la cual es un test asincrono
-test('POST /', async t => {
+test('no token POST /', async t => {
   let imagen = fixtures.getImagen()
   let url = t.context.url
 
@@ -51,6 +55,53 @@ test('POST /', async t => {
       src: imagen.src,
       UserId: imagen.userId
     },
+
+    resolveWithFullResponse: true
+  }
+
+  await t.throws(request(options), /invalid token/)
+})
+
+// si hay un ataque malicioso hacky en el toquen
+test('invalid token POST /', async t => {
+  let imagen = fixtures.getImagen()
+  let url = t.context.url
+  let token = await utils.iniciarToken({userId: 'hacky'}, config.secret)
+
+  let options = {
+    method: 'POST',
+    url: url,
+    json: true,
+    body: {
+      description: imagen.description,
+      src: imagen.src,
+      UserId: imagen.userId
+    },
+    headers: {
+      'Authorization': `Bearer ${token}`
+    },
+    resolveWithFullResponse: true
+  }
+  await t.throws(request(options), /invalid token/)
+})
+// POST / es la segunda ruta la cual es un test asincrono
+test('secure token POST /', async t => {
+  let imagen = fixtures.getImagen()
+  let url = t.context.url
+  let token = await utils.iniciarToken({userId: imagen.userId}, config.secret)
+
+  let options = {
+    method: 'POST',
+    url: url,
+    json: true,
+    body: {
+      description: imagen.description,
+      src: imagen.src,
+      UserId: imagen.userId
+    },
+    headers: {
+      'Authorization': `Bearer ${token}`
+    },
     resolveWithFullResponse: true
   }
 
@@ -59,7 +110,6 @@ test('POST /', async t => {
   t.is(response.statusCode, 201)
   t.deepEqual(response.body, imagen)
 })
-
 // POST /id/ like es para la ruta que nos va a dar los like de la aplicacion
 test('POST /:id /like', async t => {
   let imagen = fixtures.getImagen()
