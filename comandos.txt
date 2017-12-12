@@ -1,3 +1,6 @@
 // eslint-disable-line no-unused-vars: al hacer este comentario le decimos a standar que desahibilite esta linea y la pueda correr
 
-npm install jsonwebtoken --save: para tener los token	
+npm install jsonwebtoken --save: para garantisar que solo los usuarios que esten autenticados en la plataforma puedan llamar cierta ruta 
+vamos a utilizar un api token y cada que el usurio vaya a hacer peticiones http utilize el token
+
+npm install token-extractor --save: para extraer el token por nosotros y validarlo que este bien en el header
