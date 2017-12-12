@@ -40,4 +40,8 @@ export default class Db {
   getUsuario (username) {
     return Promise.resolve(fixtures.getUsuario())
   }
+
+  autenticar (username, password) {
+    return Promise.resolve(true)
+  }
 }

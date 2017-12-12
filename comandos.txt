@@ -1,5 +1,3 @@
 // eslint-disable-line no-unused-vars: al hacer este comentario le decimos a standar que desahibilite esta linea y la pueda correr
 
-npm install jsonwebtoken --save: para generar los token
-
-npm install token-extractor --save: para extraer el token por nosotros
+npm install jsonwebtoken --save: para tener los token	

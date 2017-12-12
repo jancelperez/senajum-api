@@ -53,7 +53,7 @@ test('no token POST /', async t => {
     body: {
       description: imagen.description,
       src: imagen.src,
-      UserId: imagen.userId
+      userId: imagen.userId
     },
 
     resolveWithFullResponse: true
@@ -75,7 +75,7 @@ test('invalid token POST /', async t => {
     body: {
       description: imagen.description,
       src: imagen.src,
-      UserId: imagen.userId
+      userId: imagen.userId
     },
     headers: {
       'Authorization': `Bearer ${token}`
@@ -97,7 +97,7 @@ test('secure token POST /', async t => {
     body: {
       description: imagen.description,
       src: imagen.src,
-      UserId: imagen.userId
+      userId: imagen.userId
     },
     headers: {
       'Authorization': `Bearer ${token}`
