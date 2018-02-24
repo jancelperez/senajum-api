@@ -1,11 +1,11 @@
 'use strict'
 
-import { send, json } from 'micro'
-import HttpHash from 'http-hash'
-import Db from 'senagram-db'
-import DbStub from './test/stub/db'
-import config from './config'
-import utils from './lib/utils'
+const { send, json } = require('micro')
+const HttpHash = require('http-hash')
+const Db = require('senagram-db')
+const DbStub = require('./test/stub/db')
+const config = require('./config')
+const utils = require('./lib/utils')
 
 // const env = process.env.NODE_ENV || 'production'
 const env = 'test'
@@ -69,7 +69,7 @@ hash.set('POST /:id/like', async function likePicture (req, res, params) {
 })
 // micro espera que le exporte una funcion asincrona para empezar a servir
 // se exporta la funcion main que tiene los objetos de reques y response
-export default async function main (req, res) {
+module.exports = async function main (req, res) {
   // object destructuring es lo mismo que hacer method = req.method y let url = req.url propiedad de enmascrip 6
   let { method, url } = req
 
