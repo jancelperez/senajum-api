@@ -9,7 +9,8 @@ module.exports = {
       src: `http://senagram.test/123456789.jpg`,
       description: '#awesome',
       tags: ['awesome'],
-      createdAt: new Date().toString()
+      createdAt: new Date().toString(),
+      json: true
     }
   },
 
@@ -30,12 +31,12 @@ module.exports = {
 
   getUsuario () {
     return {
-      id: '123456789',
-      name: 'Jancel Perez',
-      username: 'janper',
-      email: 'jhperez@misena.edu.co',
+      id: '2b0e8385-0592-4af7-b139-11d0a56ea979',
+      name: 'Jancel Hernan',
+      username: 'jancel',
+      email: 'jhperez5@hotmail.com',
       password: 'senajum',
-      createdAt: new Date().toString()
+      createdAt: '2018-03-19T17:45:30.722Z'
     }
   }
 }

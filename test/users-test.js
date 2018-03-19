@@ -16,6 +16,10 @@ import users from '../users'
 
 import fixtures from './fixtures'
 
+// const Db = require('senagram-db')
+
+// let db = new Db(config.db)
+
 test.beforeEach(async t => {
   let servidor = micro(users)
   t.context.url = await listen(servidor)
@@ -32,8 +36,8 @@ test('POST /', async t => {
     body: {
       name: user.name,
       username: user.username,
-      email: user.email,
-      pasword: user.pasword
+      password: user.password,
+      email: user.email
     },
     // para verificar si respondio correctamen con el codigo
     // resuelva la promesa con toda la respuesta
@@ -44,8 +48,8 @@ test('POST /', async t => {
   let response = await request(options)
 
   // yo no quiero que el usuario autenticarse mi api devuelva estos dos campos
-  delete user.email
-  delete user.password
+  // delete user.email
+  // delete user.password
 
   // verificar que el statusCode sea igual a 201 osea que halla sido creado
   t.is(response.statusCode, 201)

@@ -7,8 +7,8 @@ const DbStub = require('./test/stub/db')
 const config = require('./config')
 const utils = require('./lib/utils')
 
-// const env = process.env.NODE_ENV || 'production'
-const env = 'test'
+const env = process.env.NODE_ENV || 'production'
+// const env = 'test'
 let db = new Db(config.db)
 
 if (env === 'test') {
